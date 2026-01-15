@@ -1,6 +1,6 @@
 // Centralized Business Data - Single Source of Truth
 // All data from CDC Investor Data Room (Jan 2026)
-// Source: Google Drive Data Room - https://drive.google.com/drive/folders/1Y8seSfR-Lpy-ESndy08BE0kk0G4gElJ2
+// Source: Google Drive Data Room - https://drive.google.com/drive/folders/1etUhqNoF24SfEO9U9irET1KgjC2o4nMa
 
 export const companyInfo = {
   name: "Crepdog Crew",
@@ -311,11 +311,11 @@ export const keyMetrics = {
 
 // Document Links
 export const documentLinks = {
-  pitchDeck: "https://drive.google.com/drive/folders/19UHG6yW0zXjsK-bbSMxrN7Qmfxzxt4xG",
-  mis: "https://drive.google.com/drive/folders/1bM7sVd6rP59sfDIckzfV4nXHrNOkMjhm",
-  financials: "https://drive.google.com/drive/folders/1W5KzPuaOyhZvsTikFjlmPDxu5PuJ2XBy",
-  investorFaq: "https://drive.google.com/drive/folders/1tEKigXvDH5w28onKJCXJZyRw608mdl8x",
-  dataRoom: "https://drive.google.com/drive/folders/1Y8seSfR-Lpy-ESndy08BE0kk0G4gElJ2"
+  pitchDeck: "https://drive.google.com/drive/folders/16dEnuE4Aml9asy6tmn3a8AqtRUn08PTE",
+  mis: "https://drive.google.com/drive/folders/1hJVr0xzckP_iSMZekXmkAGm_IaGmyHNU",
+  financials: "https://drive.google.com/drive/folders/138WYK9a_5kOLRkVCSllR8fD-peJ8JvrG",
+  investorFaq: "https://drive.google.com/drive/folders/1etUhqNoF24SfEO9U9irET1KgjC2o4nMa",
+  dataRoom: "https://drive.google.com/drive/folders/1etUhqNoF24SfEO9U9irET1KgjC2o4nMa"
 };
 
 // Unit Economics
