@@ -1,4 +1,14 @@
 import PageHeader from '../components/PageHeader';
+import {
+  companyInfo,
+  revenueData,
+  channelData,
+  storesData,
+  productData,
+  financials,
+  competitionData,
+  documentLinks
+} from '../data/businessData';
 
 function Documents() {
   return (
@@ -16,7 +26,7 @@ function Documents() {
             <h3 className="infographic-title">Investor Pitch Deck</h3>
             <p className="infographic-subtitle">January 2026 - 28 Pages - The Complete Story</p>
           </div>
-          <a href="https://drive.google.com/drive/folders/19UHG6yW0zXjsK-bbSMxrN7Qmfxzxt4xG" target="_blank" rel="noopener noreferrer" className="download-pill">
+          <a href={documentLinks.pitchDeck} target="_blank" rel="noopener noreferrer" className="download-pill">
             <i className="fas fa-external-link-alt"></i> Open
           </a>
         </div>
@@ -27,7 +37,7 @@ function Documents() {
               <div className="explain-box">
                 <div className="explain-icon">👟</div>
                 <div className="explain-text">
-                  <strong>India's #1 Premium Sneaker Store</strong>
+                  <strong>{companyInfo.tagline}</strong>
                   <span>Like a Nike/Adidas store, but with rare & limited edition shoes you can't find anywhere else</span>
                 </div>
               </div>
@@ -41,8 +51,8 @@ function Documents() {
               <div className="explain-box">
                 <div className="explain-icon">🏪</div>
                 <div className="explain-text">
-                  <strong>3 Premium Stores + Website</strong>
-                  <span>Physical stores in Delhi, Mumbai, Hyderabad + online shopping</span>
+                  <strong>{companyInfo.storeCount} Premium Stores + Website</strong>
+                  <span>Physical stores in {storesData.stores.map(s => s.name).join(', ')} + online shopping</span>
                 </div>
               </div>
             </div>
@@ -53,22 +63,22 @@ function Documents() {
             <div className="money-visual">
               <div className="money-year">
                 <div className="money-bar" style={{ height: '40px', background: '#ddd' }}></div>
-                <div className="money-value">₹12 Cr</div>
+                <div className="money-value">₹{Math.round(revenueData.annual.FY23)} Cr</div>
                 <div className="money-label">FY23</div>
               </div>
               <div className="money-year">
                 <div className="money-bar" style={{ height: '100px', background: '#9BBF1E' }}></div>
-                <div className="money-value">₹65 Cr</div>
+                <div className="money-value">₹{revenueData.annual.FY24} Cr</div>
                 <div className="money-label">FY24</div>
               </div>
               <div className="money-year">
                 <div className="money-bar" style={{ height: '130px', background: '#6B8E23' }}></div>
-                <div className="money-value">₹80 Cr</div>
+                <div className="money-value">₹{revenueData.annual.FY25} Cr</div>
                 <div className="money-label">FY25</div>
               </div>
               <div className="money-year">
                 <div className="money-bar" style={{ height: '180px', background: '#C0E529' }}></div>
-                <div className="money-value">₹120 Cr</div>
+                <div className="money-value">₹{revenueData.annual.FY26Target} Cr</div>
                 <div className="money-label">FY26 🎯</div>
               </div>
             </div>
@@ -87,17 +97,17 @@ function Documents() {
               <div className="flow-step">
                 <div className="flow-num">2</div>
                 <div className="flow-icon">🏪</div>
-                <div className="flow-text">Sell in stores & online<br /><small>(₹12,500 avg sale)</small></div>
+                <div className="flow-text">Sell in stores & online<br /><small>(₹{productData.aov.overall.toLocaleString()} avg sale)</small></div>
               </div>
               <div className="flow-arrow">→</div>
               <div className="flow-step">
                 <div className="flow-num">3</div>
                 <div className="flow-icon">💵</div>
-                <div className="flow-text">Keep 22% margin<br /><small>(Pay brands the rest)</small></div>
+                <div className="flow-text">Keep {channelData.margin.blended}% margin<br /><small>(Pay brands the rest)</small></div>
               </div>
             </div>
             <div className="margin-explain">
-              <span className="margin-tag">💡 This means: For every ₹100 sale, CDC keeps ₹22 as profit!</span>
+              <span className="margin-tag">💡 This means: For every ₹100 sale, CDC keeps ₹{channelData.margin.blended} as profit!</span>
             </div>
           </div>
 
@@ -111,17 +121,17 @@ function Documents() {
               </div>
               <div className="compare-row">
                 <div className="compare-label">Real Products?</div>
-                <div className="compare-cdc"><span className="big-check">✅</span> 99%</div>
+                <div className="compare-cdc"><span className="big-check">✅</span> {competitionData.cdc.authenticity}%</div>
                 <div className="compare-others"><span className="big-x">❌</span> 60-80%</div>
               </div>
               <div className="compare-row">
                 <div className="compare-label">Delivered on time?</div>
-                <div className="compare-cdc"><span className="big-check">✅</span> 98%</div>
+                <div className="compare-cdc"><span className="big-check">✅</span> {competitionData.cdc.fulfillment}%</div>
                 <div className="compare-others"><span className="big-x">❌</span> 10-60%</div>
               </div>
               <div className="compare-row">
                 <div className="compare-label">Physical Stores?</div>
-                <div className="compare-cdc"><span className="big-check">✅</span> 3 Stores</div>
+                <div className="compare-cdc"><span className="big-check">✅</span> {competitionData.cdc.stores} Stores</div>
                 <div className="compare-others"><span className="big-x">❌</span> None/Few</div>
               </div>
             </div>
@@ -137,7 +147,7 @@ function Documents() {
             <h3 className="infographic-title">MIS & Operational Metrics</h3>
             <p className="infographic-subtitle">YTD FY26 (Apr-Dec 2025) - Live Business Data</p>
           </div>
-          <a href="https://drive.google.com/drive/folders/1bM7sVd6rP59sfDIckzfV4nXHrNOkMjhm" target="_blank" rel="noopener noreferrer" className="download-pill">
+          <a href={documentLinks.mis} target="_blank" rel="noopener noreferrer" className="download-pill">
             <i className="fas fa-external-link-alt"></i> Open
           </a>
         </div>
@@ -146,17 +156,17 @@ function Documents() {
             <div className="info-label">CURRENT PERFORMANCE (9 Months)</div>
             <div className="big-metrics">
               <div className="big-metric lime-bg">
-                <div className="big-metric-value">₹93.3 Cr</div>
+                <div className="big-metric-value">₹{revenueData.ytdFY26.gmv} Cr</div>
                 <div className="big-metric-label">Total Sales (GMV)</div>
                 <div className="big-metric-explain">💡 Money collected from customers</div>
               </div>
               <div className="big-metric white-bg">
-                <div className="big-metric-value">₹88.5 Cr</div>
+                <div className="big-metric-value">₹{revenueData.ytdFY26.operatingRevenue} Cr</div>
                 <div className="big-metric-label">Net Revenue</div>
                 <div className="big-metric-explain">💡 After returns & discounts</div>
               </div>
               <div className="big-metric olive-bg">
-                <div className="big-metric-value">18%</div>
+                <div className="big-metric-value">{revenueData.ytdFY26.grossMargin}%</div>
                 <div className="big-metric-label">Gross Margin</div>
                 <div className="big-metric-explain">💡 Profit before expenses</div>
               </div>
@@ -167,25 +177,25 @@ function Documents() {
             <div className="info-label">WHERE DOES MONEY COME FROM?</div>
             <div className="channel-visual">
               <div className="channel-bar">
-                <div className="channel-retail" style={{ width: '59%' }}>
+                <div className="channel-retail" style={{ width: `${channelData.split.retail}%` }}>
                   <span className="channel-icon">🏬</span>
-                  <span className="channel-pct">59%</span>
+                  <span className="channel-pct">{channelData.split.retail}%</span>
                   <span className="channel-name">Stores</span>
                 </div>
-                <div className="channel-online" style={{ width: '41%' }}>
+                <div className="channel-online" style={{ width: `${channelData.split.online}%` }}>
                   <span className="channel-icon">💻</span>
-                  <span className="channel-pct">41%</span>
+                  <span className="channel-pct">{channelData.split.online}%</span>
                   <span className="channel-name">Online</span>
                 </div>
               </div>
               <div className="channel-details">
                 <div className="channel-detail">
                   <span className="detail-emoji">🏬</span>
-                  <span><strong>Stores:</strong> ₹55 Cr - Higher profit (24% margin) - Premium experience</span>
+                  <span><strong>Stores:</strong> ₹{channelData.revenue.retail} Cr - Higher profit ({channelData.margin.retail}% margin) - Premium experience</span>
                 </div>
                 <div className="channel-detail">
                   <span className="detail-emoji">💻</span>
-                  <span><strong>Online:</strong> ₹38 Cr - Lower cost - Reaches all India</span>
+                  <span><strong>Online:</strong> ₹{channelData.revenue.online} Cr - Lower cost - Reaches all India</span>
                 </div>
               </div>
             </div>
@@ -194,36 +204,22 @@ function Documents() {
           <div className="infographic-section">
             <div className="info-label">STORE-BY-STORE BREAKDOWN</div>
             <div className="store-bars">
-              <div className="store-bar-item">
-                <div className="store-bar-header">
-                  <span className="store-bar-name">📍 Delhi</span>
-                  <span className="store-bar-value">₹27 Cr</span>
-                </div>
-                <div className="store-bar-track">
-                  <div className="store-bar-fill-inner" style={{ width: '100%', background: 'var(--lime)' }}></div>
-                </div>
-                <div className="store-bar-info">Flagship - 4,000 sqft - Since Feb 2022</div>
-              </div>
-              <div className="store-bar-item">
-                <div className="store-bar-header">
-                  <span className="store-bar-name">📍 Mumbai</span>
-                  <span className="store-bar-value">₹16 Cr</span>
-                </div>
-                <div className="store-bar-track">
-                  <div className="store-bar-fill-inner" style={{ width: '59%', background: 'var(--olive)' }}></div>
-                </div>
-                <div className="store-bar-info">Premium Location - 2,500 sqft - Since May 2023</div>
-              </div>
-              <div className="store-bar-item">
-                <div className="store-bar-header">
-                  <span className="store-bar-name">📍 Hyderabad</span>
-                  <span className="store-bar-value">₹12 Cr</span>
-                </div>
-                <div className="store-bar-track">
-                  <div className="store-bar-fill-inner" style={{ width: '44%', background: 'var(--olive-dark)' }}></div>
-                </div>
-                <div className="store-bar-info">Newest Store - 3,700 sqft - Since Oct 2024</div>
-              </div>
+              {storesData.stores.map((store, index) => {
+                const maxRevenue = Math.max(...storesData.stores.map(s => s.revenueYTD));
+                const colors = ['var(--lime)', 'var(--olive)', 'var(--olive-dark)'];
+                return (
+                  <div className="store-bar-item" key={index}>
+                    <div className="store-bar-header">
+                      <span className="store-bar-name">📍 {store.name}</span>
+                      <span className="store-bar-value">₹{store.revenueYTD} Cr</span>
+                    </div>
+                    <div className="store-bar-track">
+                      <div className="store-bar-fill-inner" style={{ width: `${(store.revenueYTD / maxRevenue) * 100}%`, background: colors[index] }}></div>
+                    </div>
+                    <div className="store-bar-info">{store.type} - {store.area.toLocaleString()} sqft - Since {store.openDate}</div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -234,24 +230,24 @@ function Documents() {
                 <div className="product-icon-wrap shoes">👟</div>
                 <div className="product-info">
                   <div className="product-name">Sneakers & Shoes</div>
-                  <div className="product-pct-bar"><div style={{ width: '70%', background: 'var(--lime)' }}></div></div>
-                  <div className="product-pct">70% of sales</div>
+                  <div className="product-pct-bar"><div style={{ width: `${productData.mix.sneakers}%`, background: 'var(--lime)' }}></div></div>
+                  <div className="product-pct">{productData.mix.sneakers}% of sales</div>
                 </div>
               </div>
               <div className="product-item">
                 <div className="product-icon-wrap apparel">👕</div>
                 <div className="product-info">
                   <div className="product-name">Streetwear & Apparel</div>
-                  <div className="product-pct-bar"><div style={{ width: '25%', background: 'var(--olive)' }}></div></div>
-                  <div className="product-pct">25% of sales</div>
+                  <div className="product-pct-bar"><div style={{ width: `${productData.mix.streetwear}%`, background: 'var(--olive)' }}></div></div>
+                  <div className="product-pct">{productData.mix.streetwear}% of sales</div>
                 </div>
               </div>
               <div className="product-item">
                 <div className="product-icon-wrap accessories">🎒</div>
                 <div className="product-info">
                   <div className="product-name">Accessories</div>
-                  <div className="product-pct-bar"><div style={{ width: '5%', background: 'var(--olive-dark)' }}></div></div>
-                  <div className="product-pct">5% of sales</div>
+                  <div className="product-pct-bar"><div style={{ width: `${productData.mix.accessories}%`, background: 'var(--olive-dark)' }}></div></div>
+                  <div className="product-pct">{productData.mix.accessories}% of sales</div>
                 </div>
               </div>
             </div>
@@ -267,7 +263,7 @@ function Documents() {
             <h3 className="infographic-title">Audited Financials FY24</h3>
             <p className="infographic-subtitle">April 2023 - March 2024 - Official Accounts</p>
           </div>
-          <a href="https://drive.google.com/drive/folders/1W5KzPuaOyhZvsTikFjlmPDxu5PuJ2XBy" target="_blank" rel="noopener noreferrer" className="download-pill">
+          <a href={documentLinks.financials} target="_blank" rel="noopener noreferrer" className="download-pill">
             <i className="fas fa-external-link-alt"></i> Open
           </a>
         </div>
@@ -277,55 +273,55 @@ function Documents() {
             <div className="balance-visual">
               <div className="balance-side owns">
                 <div className="balance-title">✅ WHAT CDC OWNS (Assets)</div>
-                <div className="balance-total">₹1.57 Crore</div>
+                <div className="balance-total">₹{financials.FY24.assets.total} Crore</div>
                 <div className="balance-items">
                   <div className="balance-item">
                     <span className="balance-icon">🏪</span>
                     <span className="balance-name">Store Equipment & Fixtures</span>
-                    <span className="balance-val">₹16 L</span>
+                    <span className="balance-val">₹{financials.FY24.assets.equipment * 100} L</span>
                   </div>
                   <div className="balance-item">
                     <span className="balance-icon">📦</span>
                     <span className="balance-name">Inventory (Products)</span>
-                    <span className="balance-val">₹49 L</span>
+                    <span className="balance-val">₹{financials.FY24.assets.inventory * 100} L</span>
                   </div>
                   <div className="balance-item">
                     <span className="balance-icon">💵</span>
                     <span className="balance-name">Cash in Bank</span>
-                    <span className="balance-val">₹67 L</span>
+                    <span className="balance-val">₹{financials.FY24.assets.cash * 100} L</span>
                   </div>
                   <div className="balance-item">
                     <span className="balance-icon">📄</span>
                     <span className="balance-name">Money Owed to CDC</span>
-                    <span className="balance-val">₹3.8 L</span>
+                    <span className="balance-val">₹{(financials.FY24.assets.receivables * 100).toFixed(1)} L</span>
                   </div>
                 </div>
               </div>
               <div className="balance-side owes">
                 <div className="balance-title">💳 WHAT CDC OWES (Liabilities)</div>
-                <div className="balance-total">₹51.5 Lakh</div>
+                <div className="balance-total">₹{(financials.FY24.liabilities.total * 100).toFixed(1)} Lakh</div>
                 <div className="balance-items">
                   <div className="balance-item">
                     <span className="balance-icon">🏦</span>
                     <span className="balance-name">Founder Loans</span>
-                    <span className="balance-val">₹3.3 L</span>
+                    <span className="balance-val">₹{(financials.FY24.liabilities.founderLoans * 100).toFixed(1)} L</span>
                   </div>
                   <div className="balance-item">
                     <span className="balance-icon">🏢</span>
                     <span className="balance-name">Supplier Payments Due</span>
-                    <span className="balance-val">₹34 L</span>
+                    <span className="balance-val">₹{financials.FY24.liabilities.supplierPayables * 100} L</span>
                   </div>
                   <div className="balance-item">
                     <span className="balance-icon">📋</span>
                     <span className="balance-name">Other Payables</span>
-                    <span className="balance-val">₹14 L</span>
+                    <span className="balance-val">₹{financials.FY24.liabilities.otherPayables * 100} L</span>
                   </div>
                 </div>
               </div>
             </div>
             <div className="net-worth-box">
               <span className="net-worth-label">🎯 NET WORTH (Owns - Owes)</span>
-              <span className="net-worth-value">₹1.05 Crore</span>
+              <span className="net-worth-value">₹{financials.FY24.netWorth} Crore</span>
               <span className="net-worth-explain">💡 This is the company's real value after paying all debts</span>
             </div>
           </div>
@@ -337,7 +333,7 @@ function Documents() {
                 <div className="pnl-icon">💰</div>
                 <div className="pnl-details">
                   <div className="pnl-label">Total Sales Revenue</div>
-                  <div className="pnl-value">₹65.5 Crore</div>
+                  <div className="pnl-value">₹{financials.FY24.revenue} Crore</div>
                 </div>
               </div>
               <div className="pnl-minus">−</div>
@@ -345,7 +341,7 @@ function Documents() {
                 <div className="pnl-icon">💸</div>
                 <div className="pnl-details">
                   <div className="pnl-label">Cost of Products</div>
-                  <div className="pnl-value">₹54 Crore</div>
+                  <div className="pnl-value">₹{financials.FY24.costOfGoods} Crore</div>
                 </div>
               </div>
               <div className="pnl-minus">−</div>
@@ -353,7 +349,7 @@ function Documents() {
                 <div className="pnl-icon">🏢</div>
                 <div className="pnl-details">
                   <div className="pnl-label">Operating Costs</div>
-                  <div className="pnl-value">₹11.5 Crore</div>
+                  <div className="pnl-value">₹{financials.FY24.operatingCosts} Crore</div>
                 </div>
               </div>
               <div className="pnl-equals">=</div>
@@ -361,14 +357,14 @@ function Documents() {
                 <div className="pnl-icon">📉</div>
                 <div className="pnl-details">
                   <div className="pnl-label">Net Loss</div>
-                  <div className="pnl-value">-₹77 Lakh</div>
+                  <div className="pnl-value">-₹{Math.abs(financials.FY24.netProfitLoss * 100)} Lakh</div>
                 </div>
               </div>
             </div>
             <div className="loss-explain">
               <div className="loss-reason">
                 <span className="reason-icon">🔥</span>
-                <span className="reason-text"><strong>Why the loss?</strong> Mumbai store had a fire in May 2024, disrupting 2 months of operations. Without this, CDC would have been profitable!</span>
+                <span className="reason-text"><strong>Why the loss?</strong> {financials.FY24.lossReason}</span>
               </div>
             </div>
           </div>
@@ -378,25 +374,25 @@ function Documents() {
             <div className="ratios-grid">
               <div className="ratio-card good">
                 <div className="ratio-name">Current Ratio</div>
-                <div className="ratio-value">2.69</div>
+                <div className="ratio-value">{financials.FY24.ratios.currentRatio}</div>
                 <div className="ratio-status">✅ Healthy</div>
-                <div className="ratio-explain">💡 Can pay bills 2.7x over. Good!</div>
+                <div className="ratio-explain">💡 Can pay bills {financials.FY24.ratios.currentRatio.toFixed(1)}x over. Good!</div>
               </div>
               <div className="ratio-card good">
                 <div className="ratio-name">Debt-to-Equity</div>
-                <div className="ratio-value">0.49</div>
+                <div className="ratio-value">{financials.FY24.ratios.debtToEquity}</div>
                 <div className="ratio-status">✅ Low Debt</div>
                 <div className="ratio-explain">💡 Not over-leveraged. Safe!</div>
               </div>
               <div className="ratio-card excellent">
                 <div className="ratio-name">Inventory Turnover</div>
-                <div className="ratio-value">26.5x</div>
+                <div className="ratio-value">{financials.FY24.ratios.inventoryTurnover}x</div>
                 <div className="ratio-status">🌟 Excellent</div>
                 <div className="ratio-explain">💡 Products sell fast. Very efficient!</div>
               </div>
               <div className="ratio-card neutral">
                 <div className="ratio-name">Net Profit Margin</div>
-                <div className="ratio-value">-1%</div>
+                <div className="ratio-value">{financials.FY24.ratios.netProfitMargin}%</div>
                 <div className="ratio-status">⚠️ Loss Year</div>
                 <div className="ratio-explain">💡 Due to Mumbai fire incident</div>
               </div>
@@ -413,7 +409,7 @@ function Documents() {
             <h3 className="infographic-title">Audited Financials FY23</h3>
             <p className="infographic-subtitle">Sep 2022 - March 2023 - First Year of Pvt Ltd</p>
           </div>
-          <a href="https://drive.google.com/drive/folders/1W5KzPuaOyhZvsTikFjlmPDxu5PuJ2XBy" target="_blank" rel="noopener noreferrer" className="download-pill">
+          <a href={documentLinks.financials} target="_blank" rel="noopener noreferrer" className="download-pill">
             <i className="fas fa-external-link-alt"></i> Open
           </a>
         </div>
@@ -423,22 +419,22 @@ function Documents() {
             <div className="first-year-stats">
               <div className="fy-stat">
                 <div className="fy-stat-icon">💰</div>
-                <div className="fy-stat-value">₹12.46 Cr</div>
+                <div className="fy-stat-value">₹{financials.FY23.revenue} Cr</div>
                 <div className="fy-stat-label">Revenue in 6 months</div>
               </div>
               <div className="fy-stat">
                 <div className="fy-stat-icon">✅</div>
-                <div className="fy-stat-value">₹18.5 L</div>
+                <div className="fy-stat-value">₹{(financials.FY23.netProfit * 100).toFixed(1)} L</div>
                 <div className="fy-stat-label">Net Profit</div>
               </div>
               <div className="fy-stat">
                 <div className="fy-stat-icon">🏪</div>
-                <div className="fy-stat-value">1</div>
+                <div className="fy-stat-value">{financials.FY23.stores}</div>
                 <div className="fy-stat-label">Store (Delhi)</div>
               </div>
               <div className="fy-stat">
                 <div className="fy-stat-icon">💵</div>
-                <div className="fy-stat-value">₹2.63 Cr</div>
+                <div className="fy-stat-value">₹{financials.FY23.cashInBank} Cr</div>
                 <div className="fy-stat-label">Cash in Bank</div>
               </div>
             </div>
@@ -456,16 +452,16 @@ function Documents() {
                 <div className="growth-bars">
                   <div className="growth-bar-row">
                     <span className="growth-year">FY23</span>
-                    <div className="growth-fill" style={{ width: '19%' }}></div>
-                    <span className="growth-val">₹12.5 Cr</span>
+                    <div className="growth-fill" style={{ width: `${(financials.FY23.revenue / financials.FY24.revenue) * 100}%` }}></div>
+                    <span className="growth-val">₹{financials.FY23.revenue} Cr</span>
                   </div>
                   <div className="growth-bar-row fy24">
                     <span className="growth-year">FY24</span>
                     <div className="growth-fill" style={{ width: '100%' }}></div>
-                    <span className="growth-val">₹65.5 Cr</span>
+                    <span className="growth-val">₹{financials.FY24.revenue} Cr</span>
                   </div>
                 </div>
-                <div className="growth-pct">📈 5.2x Growth!</div>
+                <div className="growth-pct">📈 {(financials.FY24.revenue / financials.FY23.revenue).toFixed(1)}x Growth!</div>
               </div>
               <div className="growth-metric">
                 <div className="growth-label">Stores</div>
@@ -473,7 +469,7 @@ function Documents() {
                   <div className="growth-bar-row">
                     <span className="growth-year">FY23</span>
                     <div className="growth-fill" style={{ width: '33%' }}></div>
-                    <span className="growth-val">1 Store</span>
+                    <span className="growth-val">{financials.FY23.stores} Store</span>
                   </div>
                   <div className="growth-bar-row fy24">
                     <span className="growth-year">FY24</span>
@@ -488,16 +484,16 @@ function Documents() {
                 <div className="growth-bars">
                   <div className="growth-bar-row">
                     <span className="growth-year">FY23</span>
-                    <div className="growth-fill" style={{ width: '42%' }}></div>
-                    <span className="growth-val">₹43.8 L</span>
+                    <div className="growth-fill" style={{ width: `${(financials.FY23.netWorth / financials.FY24.netWorth) * 100}%` }}></div>
+                    <span className="growth-val">₹{(financials.FY23.netWorth * 100).toFixed(1)} L</span>
                   </div>
                   <div className="growth-bar-row fy24">
                     <span className="growth-year">FY24</span>
                     <div className="growth-fill" style={{ width: '100%' }}></div>
-                    <span className="growth-val">₹1.05 Cr</span>
+                    <span className="growth-val">₹{financials.FY24.netWorth} Cr</span>
                   </div>
                 </div>
-                <div className="growth-pct">📈 2.4x Growth!</div>
+                <div className="growth-pct">📈 {(financials.FY24.netWorth / financials.FY23.netWorth).toFixed(1)}x Growth!</div>
               </div>
             </div>
           </div>
@@ -512,7 +508,7 @@ function Documents() {
             <h3 className="infographic-title">Investor FAQ</h3>
             <p className="infographic-subtitle">27+ Questions Answered - November 2025</p>
           </div>
-          <a href="https://drive.google.com/drive/folders/1tEKigXvDH5w28onKJCXJZyRw608mdl8x" target="_blank" rel="noopener noreferrer" className="download-pill">
+          <a href={documentLinks.investorFaq} target="_blank" rel="noopener noreferrer" className="download-pill">
             <i className="fas fa-external-link-alt"></i> Open
           </a>
         </div>
@@ -526,7 +522,7 @@ function Documents() {
               </div>
               <div className="faq-item">
                 <div className="faq-q">How does CDC make money?</div>
-                <div className="faq-a">22% margin on each sale. Gets products from brands, sells to customers, keeps the difference</div>
+                <div className="faq-a">{channelData.margin.blended}% margin on each sale. Gets products from brands, sells to customers, keeps the difference</div>
               </div>
               <div className="faq-item">
                 <div className="faq-q">What is SOR model?</div>
@@ -573,7 +569,7 @@ function Documents() {
             <h3>Access Complete Data Room</h3>
             <p>Open Google Drive folder with all documents - Pitch Deck, MIS, Financials, FAQ & more</p>
           </div>
-          <a href="https://drive.google.com/drive/folders/1Y8seSfR-Lpy-ESndy08BE0kk0G4gElJ2" target="_blank" rel="noopener noreferrer" className="download-all-btn">
+          <a href={documentLinks.dataRoom} target="_blank" rel="noopener noreferrer" className="download-all-btn">
             <i className="fas fa-external-link-alt"></i> Open Data Room
           </a>
         </div>

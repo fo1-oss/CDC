@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,7 +10,6 @@ import {
 } from 'chart.js';
 import { Bar, Doughnut } from 'react-chartjs-2';
 import {
-  colors,
   revenueChartData,
   revenueChartOptions,
   channelDonutData,
@@ -20,6 +18,13 @@ import {
   onlineDonutData,
   retailDonutData
 } from '../data/chartConfig';
+import {
+  companyInfo,
+  revenueData,
+  channelData,
+  storesData,
+  productData
+} from '../data/businessData';
 import PageHeader from '../components/PageHeader';
 import StatPill from '../components/StatPill';
 import MetricRow from '../components/MetricRow';
@@ -34,21 +39,23 @@ ChartJS.register(
   Legend
 );
 
+// Dynamic stat pills from centralized data
 const statPills = [
-  { label: 'Founded', value: '2019' },
+  { label: 'Founded', value: String(companyInfo.founded) },
   { label: 'Headquarters', value: 'Delhi' },
-  { label: 'Team', value: '100+' },
-  { label: 'ARR^', value: '₹188 Crore' },
-  { label: 'Gross Margin*', value: '18%' },
+  { label: 'Team', value: companyInfo.totalEmployees },
+  { label: 'ARR^', value: `₹${revenueData.arr} Crore` },
+  { label: 'Gross Margin*', value: `${revenueData.ytdFY26.grossMargin}%` },
   { label: 'CM2*', value: '9%' }
 ];
 
+// Dynamic metrics from centralized data
 const metrics = [
-  { icon: 'fa-store', label: 'Stores - 3*', value: 'Delhi, Mumbai, Hyderabad' },
+  { icon: 'fa-store', label: `Stores - ${companyInfo.storeCount}*`, value: storesData.stores.map(s => s.name).join(', ') },
   { icon: 'fa-receipt', label: '# of Monthly Billings*', value: '11,400 orders' },
   { icon: 'fa-ruler-combined', label: 'Revenue per sqft*', value: '₹6,000' },
-  { icon: 'fa-shopping-bag', label: 'Average Billing Value*', value: '₹13,600' },
-  { icon: 'fa-user-friends', label: 'Customers**', value: '250,000+' },
+  { icon: 'fa-shopping-bag', label: 'Average Billing Value*', value: `₹${productData.aov.overall.toLocaleString()}` },
+  { icon: 'fa-user-friends', label: 'Customers**', value: companyInfo.totalCustomers },
   { icon: 'fa-redo', label: 'Retention Rate*', value: '30% (YTD)' }
 ];
 
@@ -117,7 +124,9 @@ function Overview() {
                   <Doughnut data={onlineDonutData} options={miniDonutOptions} />
                 </div>
                 <div style={{ marginTop: '8px' }}>
-                  <span style={{ background: 'var(--olive-darker)', color: '#fff', padding: '2px 8px', borderRadius: '4px', fontSize: '11px' }}>92%</span>
+                  <span style={{ background: 'var(--olive-darker)', color: '#fff', padding: '2px 8px', borderRadius: '4px', fontSize: '11px' }}>
+                    {channelData.productMix.online.shoes}%
+                  </span>
                   <span style={{ fontSize: '10px', color: '#666' }}> Shoes</span>
                 </div>
               </div>
@@ -127,7 +136,9 @@ function Overview() {
                   <Doughnut data={retailDonutData} options={miniDonutOptions} />
                 </div>
                 <div style={{ marginTop: '8px' }}>
-                  <span style={{ background: 'var(--olive-darker)', color: '#fff', padding: '2px 8px', borderRadius: '4px', fontSize: '11px' }}>75%</span>
+                  <span style={{ background: 'var(--olive-darker)', color: '#fff', padding: '2px 8px', borderRadius: '4px', fontSize: '11px' }}>
+                    {channelData.productMix.retail.shoes}%
+                  </span>
                   <span style={{ fontSize: '10px', color: '#666' }}> Shoes</span>
                 </div>
               </div>

@@ -9,6 +9,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { storeChartData, storeChartOptions } from '../data/chartConfig';
+import { storesData, productData } from '../data/businessData';
 import PageHeader from '../components/PageHeader';
 import StatPill from '../components/StatPill';
 import StoreCard from '../components/StoreCard';
@@ -22,42 +23,27 @@ ChartJS.register(
   Legend
 );
 
+// Dynamic stat pills from centralized data
 const statPills = [
-  { label: 'Monthly Footfall*', value: '9,000+' },
-  { label: 'Conversion Rate*', value: '35%' },
+  { label: 'Monthly Footfall*', value: `${storesData.economics.monthlyFootfall.toLocaleString()}+` },
+  { label: 'Conversion Rate*', value: `${storesData.economics.conversionRate}%` },
   { label: 'Rent to Revenue*', value: '3%' },
-  { label: 'ABV*', value: '₹15,500' }
+  { label: 'ABV*', value: `₹${productData.aov.retail.toLocaleString()}` }
 ];
 
-const stores = [
-  {
-    name: 'Delhi',
-    meta: '4,000 sqft • Since Feb 2022',
-    revenue: '₹6.52 Cr',
-    barWidth: '100%',
-    apparelPct: '78%',
-    shoesPct: '22%',
-    variant: 'default'
-  },
-  {
-    name: 'Mumbai',
-    meta: '2,500 sqft • Since May 2023',
-    revenue: '₹5.40 Cr',
-    barWidth: '83%',
-    apparelPct: '74%',
-    shoesPct: '26%',
-    variant: 'dark'
-  },
-  {
-    name: 'Hyderabad',
-    meta: '3,700 sqft • Since Oct 2024',
-    revenue: '₹4.61 Cr',
-    barWidth: '71%',
-    apparelPct: '74%',
-    shoesPct: '26%',
-    variant: 'darker'
-  }
-];
+// Dynamic store cards from centralized data
+const stores = storesData.stores.map((store, index) => {
+  const maxRevenue = Math.max(...storesData.stores.map(s => s.revenueQ3));
+  return {
+    name: store.name,
+    meta: `${store.area.toLocaleString()} sqft • Since ${store.openDate}`,
+    revenue: `₹${store.revenueQ3} Cr`,
+    barWidth: `${(store.revenueQ3 / maxRevenue) * 100}%`,
+    apparelPct: store.shoesPct,
+    shoesPct: store.apparelPct,
+    variant: store.variant
+  };
+});
 
 function Stores() {
   return (
