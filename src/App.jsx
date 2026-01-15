@@ -9,11 +9,15 @@ import Funding from './pages/Funding';
 import Team from './pages/Team';
 import Documents from './pages/Documents';
 import Chatbot from './components/Chatbot';
+import OCRAdmin from './components/OCRAdmin';
+import { DataProvider, useData } from './context/DataContext';
 
-function App() {
+function AppContent() {
   const [activeSection, setActiveSection] = useState('overview');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isOCROpen, setIsOCROpen] = useState(false);
+  const { updateFromOCR } = useData();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -85,7 +89,35 @@ function App() {
       >
         <i className="fas fa-comment-dots"></i>
       </button>
+
+      {/* OCR Admin Button */}
+      <button
+        className="ocr-admin-btn"
+        onClick={() => setIsOCROpen(true)}
+        title="Update Data via OCR"
+      >
+        <i className="fas fa-file-image"></i>
+      </button>
+
+      {/* OCR Admin Modal */}
+      {isOCROpen && (
+        <OCRAdmin
+          onDataExtracted={(data) => {
+            updateFromOCR(data);
+            setIsOCROpen(false);
+          }}
+          onClose={() => setIsOCROpen(false)}
+        />
+      )}
     </>
+  );
+}
+
+function App() {
+  return (
+    <DataProvider>
+      <AppContent />
+    </DataProvider>
   );
 }
 

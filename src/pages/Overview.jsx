@@ -18,16 +18,10 @@ import {
   onlineDonutData,
   retailDonutData
 } from '../data/chartConfig';
-import {
-  companyInfo,
-  revenueData,
-  channelData,
-  storesData,
-  productData
-} from '../data/businessData';
 import PageHeader from '../components/PageHeader';
 import StatPill from '../components/StatPill';
 import MetricRow from '../components/MetricRow';
+import { useData } from '../context/DataContext';
 
 ChartJS.register(
   CategoryScale,
@@ -38,26 +32,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-// Dynamic stat pills from centralized data
-const statPills = [
-  { label: 'Founded', value: String(companyInfo.founded) },
-  { label: 'Headquarters', value: 'Delhi' },
-  { label: 'Team', value: companyInfo.totalEmployees },
-  { label: 'ARR^', value: `₹${revenueData.arr} Crore` },
-  { label: 'Gross Margin*', value: `${revenueData.ytdFY26.grossMargin}%` },
-  { label: 'CM2*', value: '9%' }
-];
-
-// Dynamic metrics from centralized data
-const metrics = [
-  { icon: 'fa-store', label: `Stores - ${companyInfo.storeCount}*`, value: storesData.stores.map(s => s.name).join(', ') },
-  { icon: 'fa-receipt', label: '# of Monthly Billings*', value: '11,400 orders' },
-  { icon: 'fa-ruler-combined', label: 'Revenue per sqft*', value: '₹6,000' },
-  { icon: 'fa-shopping-bag', label: 'Average Billing Value*', value: `₹${productData.aov.overall.toLocaleString()}` },
-  { icon: 'fa-user-friends', label: 'Customers**', value: companyInfo.totalCustomers },
-  { icon: 'fa-redo', label: 'Retention Rate*', value: '30% (YTD)' }
-];
 
 // Custom plugin to draw labels inside doughnut
 const doughnutLabelsPlugin = {
@@ -85,6 +59,28 @@ const doughnutLabelsPlugin = {
 };
 
 function Overview() {
+  const { companyInfo, revenueData, channelData, storesData, productData } = useData();
+
+  // Dynamic stat pills from context data
+  const statPills = [
+    { label: 'Founded', value: String(companyInfo.founded) },
+    { label: 'Headquarters', value: 'Delhi' },
+    { label: 'Team', value: companyInfo.totalEmployees },
+    { label: 'ARR^', value: `₹${revenueData.arr} Crore` },
+    { label: 'Gross Margin*', value: `${revenueData.ytdFY26.grossMargin}%` },
+    { label: 'CM2*', value: '9%' }
+  ];
+
+  // Dynamic metrics from context data
+  const metrics = [
+    { icon: 'fa-store', label: `Stores - ${companyInfo.storeCount}*`, value: storesData.stores.map(s => s.name).join(', ') },
+    { icon: 'fa-receipt', label: '# of Monthly Billings*', value: '11,400 orders' },
+    { icon: 'fa-ruler-combined', label: 'Revenue per sqft*', value: '₹6,000' },
+    { icon: 'fa-shopping-bag', label: 'Average Billing Value*', value: `₹${productData.aov.overall.toLocaleString()}` },
+    { icon: 'fa-user-friends', label: 'Customers**', value: companyInfo.totalCustomers },
+    { icon: 'fa-redo', label: 'Retention Rate*', value: '30% (YTD)' }
+  ];
+
   return (
     <section className="section active">
       <PageHeader
