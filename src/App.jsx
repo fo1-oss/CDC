@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import MobileHeader from './components/MobileHeader';
+import Login from './components/Login';
 import Overview from './pages/Overview';
 import Financials from './pages/Financials';
 import Stores from './pages/Stores';
@@ -12,8 +13,10 @@ import Chatbot from './components/Chatbot';
 import OCRAdmin from './components/OCRAdmin';
 import DataSyncStatus from './components/DataSyncStatus';
 import { DataProvider, useData } from './context/DataContext';
+import { AuthProvider, useAuth } from './hooks/useAuth';
 
-function AppContent() {
+function DataRoom() {
+  const { isAuthenticated, loading, user, logout } = useAuth();
   const [activeSection, setActiveSection] = useState('overview');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -50,6 +53,24 @@ function AppContent() {
     }
   };
 
+  // Show loading spinner
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <div className="loading-spinner">
+          <div className="spinner"></div>
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show login if not authenticated
+  if (!isAuthenticated) {
+    return <Login />;
+  }
+
+  // Main data room
   return (
     <>
       <MobileHeader
@@ -72,6 +93,8 @@ function AppContent() {
           activeSection={activeSection}
           onNavClick={handleNavClick}
           isOpen={isMobileMenuOpen}
+          user={user}
+          onLogout={logout}
         />
 
         <main className="main">
@@ -117,11 +140,19 @@ function AppContent() {
   );
 }
 
-function App() {
+function AppContent() {
   return (
     <DataProvider>
-      <AppContent />
+      <DataRoom />
     </DataProvider>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 
