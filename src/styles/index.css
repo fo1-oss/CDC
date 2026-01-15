@@ -2197,3 +2197,133 @@ body {
         right: 16px;
     }
 }
+
+/* ===== DATA SYNC STATUS ===== */
+.data-sync-status {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--white);
+    border: 2px solid var(--black);
+    border-radius: 12px;
+    padding: 8px 12px;
+    z-index: 1000;
+    box-shadow: 2px 2px 0 var(--black);
+}
+
+.sync-info {
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sync-loading {
+    color: #666;
+}
+
+.sync-success {
+    color: #2e7d32;
+}
+
+.sync-error {
+    color: #c62828;
+}
+
+.sync-pending {
+    color: #f57c00;
+}
+
+.sync-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.sync-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 2px solid var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 12px;
+}
+
+.sync-btn.refresh-btn {
+    background: var(--lime);
+}
+
+.sync-btn.edit-btn {
+    background: var(--white);
+    text-decoration: none;
+    color: var(--black);
+}
+
+.sync-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 2px 2px 0 var(--black);
+}
+
+.sync-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Google Sheets Button */
+.google-sheets-btn {
+    position: fixed;
+    bottom: 160px;
+    left: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #0F9D58;
+    border: 2px solid var(--black);
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 0 var(--black);
+    transition: all 0.2s;
+    z-index: 1000;
+}
+
+.google-sheets-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0 var(--black);
+}
+
+@media (max-width: 768px) {
+    .data-sync-status {
+        top: 70px;
+        right: 12px;
+        padding: 6px 10px;
+    }
+
+    .sync-info {
+        font-size: 10px;
+    }
+
+    .sync-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 10px;
+    }
+
+    .google-sheets-btn {
+        bottom: 150px;
+        left: 16px;
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+}

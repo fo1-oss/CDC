@@ -1,5 +1,6 @@
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import * as initialData from '../data/businessData';
+import { fetchAllData, isGoogleSheetsConfigured, getSheetEditUrl } from '../services/googleSheets';
 
 const DataContext = createContext();
 
@@ -14,6 +15,69 @@ export function DataProvider({ children }) {
   const [fundingData, setFundingData] = useState(initialData.fundingData);
   const [competitionData, setCompetitionData] = useState(initialData.competitionData);
   const [keyMetrics, setKeyMetrics] = useState(initialData.keyMetrics);
+
+  // Google Sheets state
+  const [isLoading, setIsLoading] = useState(false);
+  const [lastSyncTime, setLastSyncTime] = useState(null);
+  const [syncError, setSyncError] = useState(null);
+
+  // Fetch data from Google Sheets
+  const refreshFromGoogleSheets = useCallback(async () => {
+    if (!isGoogleSheetsConfigured()) {
+      console.log('Google Sheets not configured, using default data');
+      return false;
+    }
+
+    setIsLoading(true);
+    setSyncError(null);
+
+    try {
+      const sheetsData = await fetchAllData();
+
+      if (sheetsData) {
+        // Update company info
+        if (sheetsData.companyInfo) {
+          setCompanyInfo(prev => ({ ...prev, ...sheetsData.companyInfo }));
+        }
+
+        // Update revenue data
+        if (sheetsData.revenueData) {
+          setRevenueData(prev => ({ ...prev, ...sheetsData.revenueData }));
+        }
+
+        // Update product data (AOV)
+        if (sheetsData.productData) {
+          setProductData(prev => ({ ...prev, ...sheetsData.productData }));
+        }
+
+        // Update store metrics
+        if (sheetsData.storeUpdates) {
+          setStoresData(prev => ({
+            ...prev,
+            metrics: { ...prev.metrics, ...sheetsData.storeUpdates }
+          }));
+        }
+
+        setLastSyncTime(new Date());
+        console.log('Data synced from Google Sheets:', sheetsData);
+        return true;
+      }
+    } catch (error) {
+      console.error('Error syncing from Google Sheets:', error);
+      setSyncError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+
+    return false;
+  }, []);
+
+  // Auto-fetch on mount if configured
+  useEffect(() => {
+    if (isGoogleSheetsConfigured()) {
+      refreshFromGoogleSheets();
+    }
+  }, [refreshFromGoogleSheets]);
 
   // Function to update data from OCR extraction
   const updateFromOCR = useCallback((extractedData) => {
@@ -191,7 +255,14 @@ export function DataProvider({ children }) {
     marketData: initialData.marketData,
     unitEconomics: initialData.unitEconomics,
     marketProblems: initialData.marketProblems,
-    updateFromOCR
+    updateFromOCR,
+    // Google Sheets integration
+    isLoading,
+    lastSyncTime,
+    syncError,
+    refreshFromGoogleSheets,
+    isGoogleSheetsConfigured: isGoogleSheetsConfigured(),
+    googleSheetUrl: getSheetEditUrl()
   };
 
   return (

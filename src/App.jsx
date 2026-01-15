@@ -10,6 +10,7 @@ import Team from './pages/Team';
 import Documents from './pages/Documents';
 import Chatbot from './components/Chatbot';
 import OCRAdmin from './components/OCRAdmin';
+import DataSyncStatus from './components/DataSyncStatus';
 import { DataProvider, useData } from './context/DataContext';
 
 function AppContent() {
@@ -109,6 +110,9 @@ function AppContent() {
           onClose={() => setIsOCROpen(false)}
         />
       )}
+
+      {/* Google Sheets Sync Status */}
+      <DataSyncStatus />
     </>
   );
 }
