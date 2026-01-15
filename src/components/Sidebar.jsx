@@ -8,7 +8,7 @@ const navItems = [
   { id: 'documents', label: 'Documents', icon: 'fa-folder-open' }
 ];
 
-function Sidebar({ activeSection, onNavClick, isOpen }) {
+function Sidebar({ activeSection, onNavClick, isOpen, user, onLogout }) {
   return (
     <aside className={`sidebar ${isOpen ? 'active' : ''}`}>
       <div className="logo-container">
@@ -32,6 +32,24 @@ function Sidebar({ activeSection, onNavClick, isOpen }) {
           </div>
         ))}
       </nav>
+
+      {/* User section at bottom of sidebar */}
+      {user && (
+        <div className="sidebar-user">
+          <div className="user-info">
+            <div className="user-avatar">
+              {user.firstName?.[0]}{user.lastName?.[0]}
+            </div>
+            <div className="user-details">
+              <span className="user-name">{user.firstName} {user.lastName}</span>
+              <span className="user-company">{user.company || user.email}</span>
+            </div>
+          </div>
+          <button className="sidebar-logout" onClick={onLogout} title="Sign Out">
+            <i className="fas fa-sign-out-alt"></i>
+          </button>
+        </div>
+      )}
     </aside>
   );
 }
