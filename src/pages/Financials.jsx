@@ -9,6 +9,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { channelTrendData, channelTrendOptions } from '../data/chartConfig';
+import { unitEconomics, channelData } from '../data/businessData';
 import PageHeader from '../components/PageHeader';
 
 ChartJS.register(
@@ -38,16 +39,22 @@ function Financials() {
               </div>
             </div>
             <div className="econ-bar">
-              <div className="econ-bar-track" style={{ width: '82%', background: 'var(--olive-dark)' }}>82%</div>
+              <div className="econ-bar-track" style={{ width: `${100 - channelData.margin.online}%`, background: 'var(--olive-dark)' }}>
+                {100 - channelData.margin.online}%
+              </div>
             </div>
             <div className="econ-bar">
-              <div className="econ-bar-track" style={{ width: '18%', background: 'var(--olive)' }}>18%</div>
+              <div className="econ-bar-track" style={{ width: `${channelData.margin.online}%`, background: 'var(--olive)' }}>
+                {channelData.margin.online}%
+              </div>
             </div>
             <div className="econ-bar">
               <div className="econ-bar-track" style={{ width: '14%', background: 'var(--lime-dark)' }}>14%</div>
             </div>
             <div className="econ-bar">
-              <div className="econ-bar-track light" style={{ width: '3%', background: 'var(--lime)' }}>3%</div>
+              <div className="econ-bar-track light" style={{ width: `${channelData.ebitda.online}%`, background: 'var(--lime)' }}>
+                {channelData.ebitda.online}%
+              </div>
             </div>
             <div style={{ display: 'flex', gap: '12px', marginTop: '16px', flexWrap: 'wrap' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px' }}><div style={{ width: '12px', height: '12px', background: 'var(--olive-darker)' }}></div>Net Sales</div>
@@ -65,16 +72,22 @@ function Financials() {
               </div>
             </div>
             <div className="econ-bar">
-              <div className="econ-bar-track" style={{ width: '80%', background: 'var(--olive-dark)' }}>80%</div>
+              <div className="econ-bar-track" style={{ width: `${100 - channelData.margin.retail}%`, background: 'var(--olive-dark)' }}>
+                {100 - channelData.margin.retail}%
+              </div>
             </div>
             <div className="econ-bar">
-              <div className="econ-bar-track" style={{ width: '20%', background: 'var(--olive)' }}>20%</div>
+              <div className="econ-bar-track" style={{ width: `${channelData.margin.retail}%`, background: 'var(--olive)' }}>
+                {channelData.margin.retail}%
+              </div>
             </div>
             <div className="econ-bar">
               <div className="econ-bar-track" style={{ width: '19%', background: 'var(--lime-dark)' }}>19%</div>
             </div>
             <div className="econ-bar">
-              <div className="econ-bar-track light" style={{ width: '9%', background: 'var(--lime)' }}>9%</div>
+              <div className="econ-bar-track light" style={{ width: `${channelData.ebitda.retail}%`, background: 'var(--lime)' }}>
+                {channelData.ebitda.retail}%
+              </div>
             </div>
           </div>
         </div>
